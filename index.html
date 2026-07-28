@@ -15,10 +15,13 @@
 body{
     margin:0;
     background:#fff4fa;
-    font-family:
-    "Microsoft JhengHei",
-    Arial,
-    sans-serif;
+    font-family:"Microsoft JhengHei", Arial, sans-serif;
+
+    /* 禁止選取文字 */
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
 }
 
 .container{
@@ -28,8 +31,7 @@ body{
     background:white;
     border-radius:25px;
     padding:20px;
-    box-shadow:
-    0 5px 20px rgba(0,0,0,0.12);
+    box-shadow:0 5px 20px rgba(0,0,0,0.12);
     text-align:center;
 }
 
@@ -66,14 +68,12 @@ input{
     font-size:22px;
     text-align:center;
     border-radius:15px;
-    border:
-    2px solid #ffc4df;
+    border:2px solid #ffc4df;
 }
 
 button{
     margin:15px;
-    padding:
-    12px 35px;
+    padding:12px 35px;
     font-size:20px;
     border:none;
     border-radius:25px;
@@ -90,11 +90,6 @@ button:active{
     transform:scale(0.95);
 }
 
-.table-area{
-    margin-top:20px;
-    overflow-x:auto;
-}
-
 table{
     width:100%;
     border-collapse:collapse;
@@ -107,8 +102,7 @@ th{
 
 td,th{
     padding:8px;
-    border:
-    1px solid #ffd1e5;
+    border:1px solid #ffd1e5;
 }
 
 .coin{
@@ -130,6 +124,25 @@ select{
     margin-top:10px;
 }
 
+/* YouTube 影片 */
+
+.video-container{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    margin-top:20px;
+}
+
+.video-container iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border-radius:20px;
+    border:none;
+}
+
 </style>
 </head>
 
@@ -137,49 +150,60 @@ select{
 
 <div class="container">
 
-<!-- 如果沒有 zonegirl.png，可以先註解掉這行 -->
 <img src="zonegirl.png" class="zonegirl" alt="Zone Girl">
 
-<h1>
-🎀 Zone Girl
-</h1>
+<h1>🎀 Zone Girl</h1>
 
 <select id="language" onchange="changeLanguage()">
-<option value="hk">🇭🇰 繁體中文</option>
-<option value="tw">🇹🇼 台灣中文</option>
-<option value="en">🇺🇸 English</option>
-<option value="jp">🇯🇵 日本語</option>
+    <option value="hk">🇭🇰 繁體中文</option>
+    <option value="tw">🇹🇼 台灣中文</option>
+    <option value="en">🇺🇸 English</option>
+    <option value="jp">🇯🇵 日本語</option>
 </select>
 
 <h2 id="title"></h2>
 
 <div class="input-box">
-<label id="bonusText"></label>
-
-<input
-id="bonus"
-value="0"
-type="number">
+    <label id="bonusText"></label>
+    <input id="bonus" value="0" type="number">
 </div>
 
 <button onclick="calculate()">
-<span id="calculateText"></span>
+    <span id="calculateText"></span>
 </button>
 
 <div id="result"></div>
 
 <div class="note">
-Tsum Tsum Coin Correction Tool
+    Tsum Tsum Coin Correction Tool
 </div>
+
+<hr style="margin:25px 0;border:none;border-top:1px solid #ffd1e5;">
+
+<h3 style="color:#ff77b7;">🎬 Zone Girl Channel</h3>
+
+<div class="video-container">
+    <iframe
+        src="https://youtu.be/J4rGAdlrMoc?si=CEgM0yTtiO2vhXHh"
+        title="Zone Girl YouTube"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<p style="margin-top:15px;">
+    <a href="https://www.youtube.com/@RelaxZone-r6x"
+       target="_blank"
+       style="color:#ff77b7;font-weight:bold;text-decoration:none;">
+       🔗 訂閱 Zone Girl YouTube 頻道
+    </a>
+</p>
 
 </div>
 
 <script>
 
-// =========================
 // 語言資料
-// =========================
-
 let text;
 
 const languageData = {
@@ -226,126 +250,94 @@ result:"🎀 結果"
 
 };
 
-// =========================
-// 金幣增加規則
-// =========================
-
+// 金幣規則
 function getCoinPerTsum(number){
 
-    if(number < 4){
-        return 0;
-    }
-
-    if(number == 4){
-        return 1;
-    }
-
-    if(number >=5 && number <=7){
-        return 2;
-    }
-
-    if(number >=8 && number <=10){
-        return 3;
-    }
-
-    if(number >=11 && number <=14){
-        return 5;
-    }
-
-    if(number >=15 && number <=29){
-        return 10;
-    }
+    if(number < 4) return 0;
+    if(number == 4) return 1;
+    if(number >= 5 && number <= 7) return 2;
+    if(number >= 8 && number <= 10) return 3;
+    if(number >= 11 && number <= 14) return 5;
+    if(number >= 15 && number <= 29) return 10;
 
     return 12;
 }
 
-// =========================
-// 計算功能
-// =========================
-
+// 計算
 function calculate(){
 
-let bonus =
-Number(document.getElementById("bonus").value);
+    let bonus = Number(document.getElementById("bonus").value);
 
-let table = `
+    let table = `
 
-<h3>
-${text.result}
-</h3>
+    <h3>${text.result}</h3>
 
-<table>
+    <table>
+    <tr>
+        <th>${text.tsum}</th>
+        <th>${text.normal}</th>
+        <th>${text.corrected}</th>
+    </tr>
+    `;
 
-<tr>
-<th>${text.tsum}</th>
-<th>${text.normal}</th>
-<th>${text.corrected}</th>
-</tr>
-`;
+    for(let i=1;i<=50;i++){
 
-for(let i=1;i<=50;i++){
+        let baseCoin = 0;
+        let correctCoin = 0;
 
-    let baseCoin=0;
-    let correctCoin=0;
+        for(let j=1;j<=i;j++){
 
-    for(let j=1;j<=i;j++){
+            let coin = getCoinPerTsum(j);
 
-        let coin=getCoinPerTsum(j);
+            if(coin > 0){
 
-        if(coin>0){
-
-            baseCoin += coin;
-
-            correctCoin +=
-            Math.max(1, coin + bonus);
+                baseCoin += coin;
+                correctCoin += Math.max(1, coin + bonus);
+            }
         }
+
+        table += `
+
+        <tr>
+            <td>${i}</td>
+            <td>${baseCoin}</td>
+            <td class="coin">${correctCoin}</td>
+        </tr>
+        `;
     }
 
-table += `
+    table += `</table>`;
 
-<tr>
-<td>${i}</td>
-<td>${baseCoin}</td>
-<td class="coin">${correctCoin}</td>
-</tr>
-`;
+    document.getElementById("result").innerHTML = table;
 }
 
-table += `</table>`;
-
-document.getElementById("result").innerHTML=table;
-}
-
-// =========================
 // 切換語言
-// =========================
-
 function changeLanguage(){
 
-let lang =
-document.getElementById("language").value;
+    let lang = document.getElementById("language").value;
 
-text =
-languageData[lang];
+    text = languageData[lang];
 
-document.getElementById("title").innerHTML =
-text.title;
+    document.getElementById("title").innerHTML = text.title;
+    document.getElementById("bonusText").innerHTML = text.bonus;
+    document.getElementById("calculateText").innerHTML = text.calculate;
 
-document.getElementById("bonusText").innerHTML =
-text.bonus;
-
-document.getElementById("calculateText").innerHTML =
-text.calculate;
-
-// 更新表格
-calculate();
+    calculate();
 }
 
-// =========================
 // 初始化
-// =========================
-
 changeLanguage();
+
+// 禁止右鍵
+document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+});
+
+// 禁止複製
+document.addEventListener('copy', function(e){
+    e.preventDefault();
+    alert('⚠️ 此網站內容禁止複製');
+});
 
 </script>
 

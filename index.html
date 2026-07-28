@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Zone Girl Coin Correction Calculator</title>
+<title>Zone Girl</title>
 
 <style>
 
@@ -150,6 +150,25 @@ select{
 
 <div class="container">
 
+
+
+
+<div style="
+        background:#fff3cd;
+        color:#856404;
+        padding:12px;
+        border-radius:12px;
+        margin-bottom:15px;
+        font-weight:bold;
+        border:1px solid #ffe69c;
+    ">
+        🚧 網站維護中，部分功能正在更新。
+    </div>
+
+
+
+
+
 <img src="zonegirl.png" class="zonegirl" alt="Zone Girl">
 
 <h1>🎀 Zone Girl</h1>
@@ -184,9 +203,13 @@ select{
 
 <div class="video-container">
     <iframe
-        src="https://www.youtube.com/embed/ZdE8WUNgjwI"
+	width="560"
+        height="315"
+        src="https://www.youtube.com/embed/7BqI22eRmmc?autoplay=1&mute=1&loop=1&playlist=7BqI22eRmmc&rel=0&modestbranding=1"
         title="Zone Girl YouTube"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+	frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen>
     </iframe>
 </div>
@@ -201,132 +224,7 @@ select{
 
 </div>
 
-<script>
 
-// 語言資料
-let text;
-
-const languageData = {
-
-hk:{
-title:"Coin Correction Calculator",
-bonus:"金幣補正",
-calculate:"✨ 計算",
-tsum:"消除 Tsum",
-normal:"原本",
-corrected:"補正後",
-result:"🎀 計算結果"
-},
-
-tw:{
-title:"Coin Correction Calculator",
-bonus:"金幣補正",
-calculate:"✨ 計算",
-tsum:"消除 Tsum",
-normal:"原本",
-corrected:"補正後",
-result:"🎀 計算結果"
-},
-
-en:{
-title:"Coin Correction Calculator",
-bonus:"Coin Correction",
-calculate:"✨ Calculate",
-tsum:"Tsum Cleared",
-normal:"Normal",
-corrected:"Correction",
-result:"🎀 Result"
-},
-
-jp:{
-title:"コイン補正計算機",
-bonus:"コイン補正",
-calculate:"✨ 計算",
-tsum:"消去ツム数",
-normal:"通常",
-corrected:"補正後",
-result:"🎀 結果"
-}
-
-};
-
-// 金幣規則
-function getCoinPerTsum(number){
-
-    if(number < 4) return 0;
-    if(number == 4) return 1;
-    if(number >= 5 && number <= 7) return 2;
-    if(number >= 8 && number <= 10) return 3;
-    if(number >= 11 && number <= 14) return 5;
-    if(number >= 15 && number <= 29) return 10;
-
-    return 12;
-}
-
-// 計算
-function calculate(){
-
-    let bonus = Number(document.getElementById("bonus").value);
-
-    let table = `
-
-    <h3>${text.result}</h3>
-
-    <table>
-    <tr>
-        <th>${text.tsum}</th>
-        <th>${text.normal}</th>
-        <th>${text.corrected}</th>
-    </tr>
-    `;
-
-    for(let i=1;i<=50;i++){
-
-        let baseCoin = 0;
-        let correctCoin = 0;
-
-        for(let j=1;j<=i;j++){
-
-            let coin = getCoinPerTsum(j);
-
-            if(coin > 0){
-
-                baseCoin += coin;
-                correctCoin += Math.max(1, coin + bonus);
-            }
-        }
-
-        table += `
-
-        <tr>
-            <td>${i}</td>
-            <td>${baseCoin}</td>
-            <td class="coin">${correctCoin}</td>
-        </tr>
-        `;
-    }
-
-    table += `</table>`;
-
-    document.getElementById("result").innerHTML = table;
-}
-
-// 切換語言
-function changeLanguage(){
-
-    let lang = document.getElementById("language").value;
-
-    text = languageData[lang];
-
-    document.getElementById("title").innerHTML = text.title;
-    document.getElementById("bonusText").innerHTML = text.bonus;
-    document.getElementById("calculateText").innerHTML = text.calculate;
-
-    calculate();
-}
-
-// 初始化
-changeLanguage();
 
 // 禁止右鍵
 document.addEventListener('contextmenu', function(e){

@@ -183,6 +183,24 @@ select {
     border: 1px solid #ffe69c;
 }
 
+.copyright {
+    font-size: 11px;
+    color: #999;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    line-height: 1.6;
+}
+
+.copyright a {
+    color: #ff77b7;
+    text-decoration: none;
+}
+
+.copyright a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 900px) {
     .left-sidebar {
         position: relative;
@@ -213,7 +231,6 @@ select {
 </div>
 
 <div class="container">
-    
     <h1>🎀 Zone Girl</h1>
     <select id="language" onchange="changeLanguage()">
         <option value="hk">🇭🇰 繁體中文</option>
@@ -229,6 +246,12 @@ select {
     <button onclick="calculate()"><span id="calculateText"></span></button>
     <div id="result"></div>
     <div class="note">Tsum Tsum Coin Correction Tool</div>
+    
+    <div class="copyright">
+        © 2026 Zone Girl. All rights reserved.<br>
+        未經授權，禁止複製、轉載或商業使用。<br>
+        <a href="LICENSE" target="_blank">查看授權條款</a>
+    </div>
 </div>
 
 <script>

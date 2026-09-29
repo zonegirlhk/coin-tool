@@ -267,10 +267,10 @@ select {
 
 <script>
 const languageData = {
-    hk: { title: "金幣補正計算機", views: "瀏覽次數", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
-    tw: { title: "金幣補正計算機", views: "瀏覽次數", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
-    en: { title: "Coin Correction Calculator", views: "Page Views", bonus: "Coin Correction", calculate: "✨ Calculate", tsum: "Tsum Cleared", normal: "Normal", corrected: "Correction", result: "🎀 Result" },
-    jp: { title: "コイン補正計算機", views: "閲覧回数", bonus: "コイン補正", calculate: "✨ 計算", tsum: "消去ツム数", normal: "通常", corrected: "補正後", result: "🎀 結果" }
+    hk: { title: "金幣補正計算機", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
+    tw: { title: "金幣補正計算機", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
+    en: { title: "Coin Correction Calculator", bonus: "Coin Correction", calculate: "✨ Calculate", tsum: "Tsum Cleared", normal: "Normal", corrected: "Correction", result: "🎀 Result" },
+    jp: { title: "コイン補正計算機", bonus: "コイン補正", calculate: "✨ 計算", tsum: "消去ツム数", normal: "通常", corrected: "補正後", result: "🎀 結果" }
 };
 
 let text;
@@ -333,7 +333,6 @@ function changeLanguage() {
     document.getElementById("title").innerHTML = text.title;
     document.getElementById("bonusText").innerHTML = text.bonus;
     document.getElementById("calculateText").innerHTML = text.calculate;
-    document.getElementById("viewsLabel").innerHTML = text.views;
     calculate();
 }
 
@@ -442,4 +441,3 @@ changeLanguage();
 </script>
 </body>
 </html>
-

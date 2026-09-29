@@ -201,6 +201,37 @@ select {
     text-decoration: underline;
 }
 
+
+.view-counter {
+    margin: 16px auto 8px;
+    padding: 12px 16px;
+    max-width: 330px;
+    border: 1px solid #ffd2e6;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,248,252,.98), rgba(255,238,247,.95));
+    box-shadow: 0 5px 16px rgba(255,119,183,.10);
+    color: #8b6b7a;
+}
+.view-counter .counter-main {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.view-counter .counter-number {
+    color:#ff5ea8;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing:.03em;
+}
+.view-counter .counter-sub {
+    margin-top:4px;
+    font-size:11px;
+    color:#b092a2;
+}
+
 @media (max-width: 900px) {
     .left-sidebar {
         position: relative;
@@ -250,6 +281,15 @@ select {
         <option value="jp">🇯🇵 日本語</option>
     </select>
     <h2 id="title"></h2>
+
+    <div class="view-counter" aria-live="polite">
+        <div class="counter-main">
+            <span>👀</span>
+            <span id="viewsLabel">瀏覽次數</span>
+            <span class="counter-number" id="viewCount">—</span>
+        </div>
+        <div class="counter-sub" id="viewsSub"></div>
+    </div>
     <div style="margin: 20px 0;">
         <label id="bonusText"></label>
         <input id="bonus" value="0" type="number">
@@ -267,10 +307,10 @@ select {
 
 <script>
 const languageData = {
-    hk: { title: "金幣補正計算機", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
-    tw: { title: "金幣補正計算機", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
-    en: { title: "Coin Correction Calculator", bonus: "Coin Correction", calculate: "✨ Calculate", tsum: "Tsum Cleared", normal: "Normal", corrected: "Correction", result: "🎀 Result" },
-    jp: { title: "コイン補正計算機", bonus: "コイン補正", calculate: "✨ 計算", tsum: "消去ツム数", normal: "通常", corrected: "補正後", result: "🎀 結果" }
+    hk: { title: "金幣補正計算機", views: "瀏覽次數", viewsSub: "", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
+    tw: { title: "金幣補正計算機", views: "瀏覽次數", viewsSub: "", bonus: "金幣補正", calculate: "✨ 計算", tsum: "消除 Tsum", normal: "原本", corrected: "補正後", result: "🎀 計算結果" },
+    en: { title: "Coin Correction Calculator", views: "Page Views", viewsSub: "Each page opening counts as one view", bonus: "Coin Correction", calculate: "✨ Calculate", tsum: "Tsum Cleared", normal: "Normal", corrected: "Correction", result: "🎀 Result" },
+    jp: { title: "コイン補正計算機", views: "閲覧回数", viewsSub: "このページを開くたびに1回として記録されます", bonus: "コイン補正", calculate: "✨ 計算", tsum: "消去ツム数", normal: "通常", corrected: "補正後", result: "🎀 結果" }
 };
 
 let text;
@@ -333,6 +373,8 @@ function changeLanguage() {
     document.getElementById("title").innerHTML = text.title;
     document.getElementById("bonusText").innerHTML = text.bonus;
     document.getElementById("calculateText").innerHTML = text.calculate;
+    document.getElementById("viewsLabel").innerHTML = text.views;
+    document.getElementById("viewsSub").innerHTML = text.viewsSub;
     calculate();
 }
 
@@ -346,6 +388,20 @@ function switchPlaylist(number) {
 }
 
 changeLanguage();
+</script>
+
+<script>
+/* Zone Girl page-view counter: one increment per page load. */
+(function(){
+    const ZG_COUNTER_KEY = "zonegirl_coin_correction_total_views_2026_9f7c2a";
+    const ZG_COUNTER_HIT = "https://countapi.mileshilliard.com/api/v1/hit/" + ZG_COUNTER_KEY;
+    const el = document.getElementById("viewCount");
+    if(!el) return;
+    fetch(ZG_COUNTER_HIT, { cache: "no-store" })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error("counter unavailable")))
+      .then(data => { el.textContent = Number(data.value).toLocaleString(); })
+      .catch(() => { el.textContent = "—"; });
+})();
 </script>
 
 <script>

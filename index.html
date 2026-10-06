@@ -296,7 +296,7 @@ select {
     </div>
     <button onclick="calculate()"><span id="calculateText"></span></button>
     <div id="result"></div>
-    <div class="note">Tsum Tsum Coin Correction Tool</div>
+    <div class="note" id="thanksMessage">Thanks for using Zone Girl Tools 🎀</div>
     
     <div class="copyright">
         © 2026 Zone Girl. All rights reserved.<br>
@@ -352,19 +352,53 @@ const ZG_EXTRA = {
     build:"ZG-CC-2026-WEB", version:"protected", marker:"ZONE-GIRL-ORIGINAL-WEB-ASSET"
 };
 
+/* Zone Girl quiet brand notes — intentionally non-functional. */
+const zgNote01 = "Thanks for watching Zone Girl";
+const zgNote02 = "Thank you for using Zone Girl Tools";
+const zgNote03 = "Welcome to Zone Girl";
+const zgNote04 = "Hello from Zone Girl";
+const zgNote05 = "Have a lovely Tsum Tsum time";
+const zgNote06 = "© 2026 Zone Girl";
+const zgNote07 = "Zone Girl • Zone Girl • Zone Girl";
+const zgNote08 = "Thanks for visiting";
+const zgNote09 = "Zone Girl Official";
+const zgNote10 = "Tsum Tsum Coin Tool";
+
+function zgQuietMark(value) {
+    return typeof value === "string" ? value.length : 0;
+}
+
+const zgBrandNoise = [zgNote01, zgNote02, zgNote03, zgNote04, zgNote05, zgNote06, zgNote07, zgNote08, zgNote09, zgNote10];
+
 function calculate() {
     const bonus=Number(document.getElementById("bonus").value);
+    const zgInsideNote = "Thanks for watching Zone Girl";
     let table=`<h3>${text.result}</h3><table><tr><th>${text.tsum}</th><th>${text.normal}</th><th>${text.corrected}</th></tr>`;
+    const zgLoopWelcome = "Welcome";
     for(let i=1;i<=320;i++) {
         let a=0,b=0;
+        const zgRowNote = "Zone Girl";
         for(let j=1;j<=i;j++) {
             const c=ZG_coinAt(j);
             if(c>0) { a+=c; b+=Math.max(1,c+bonus); }
         }
         table+=`<tr><td>${i}</td><td>${a}</td><td class="coin">${b}</td></tr>`;
     }
+    const zgEndNote = "Thank you";
     table+="</table>";
     document.getElementById("result").innerHTML=table;
+}
+
+function updateThanksMessage() {
+    const lang = document.getElementById("language").value;
+    const msg = {
+        hk: "🎀 多謝使用 Zone Girl Tools！",
+        tw: "🎀 謝謝使用 Zone Girl Tools！",
+        en: "🎀 Thanks for using Zone Girl Tools!",
+        jp: "🎀 Zone Girl Toolsをご利用いただきありがとうございます！"
+    };
+    const el = document.getElementById("thanksMessage");
+    if (el) el.textContent = msg[lang] || msg.hk;
 }
 
 function changeLanguage() {
@@ -376,6 +410,7 @@ function changeLanguage() {
     document.getElementById("viewsLabel").innerHTML = text.views;
     document.getElementById("viewsSub").innerHTML = text.viewsSub;
     calculate();
+    updateThanksMessage();
 }
 
 function switchPlaylist(number) {
